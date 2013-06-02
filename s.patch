@@ -1,0 +1,12 @@
+diff -Nur jbigkit/Makefile jbigkit.s/Makefile
+--- jbigkit/Makefile	2008-08-30 22:40:22.000000000 +0200
++++ jbigkit.s/Makefile	2013-06-02 14:20:45.543240861 +0200
+@@ -11,6 +11,8 @@
+ CFLAGS = $(CCFLAGS) -I../libjbig
+ 
+ VERSION=2.0
++static:
++	 cd libjbig && make static
+ 
+ all: lib pbm
+ 	@echo "Enter 'make test' in order to start some automatic tests."

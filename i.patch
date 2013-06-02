@@ -1,0 +1,29 @@
+diff -Nur jbigkit/install.sh jbigkit.i/install.sh
+--- jbigkit/install.sh	1970-01-01 01:00:00.000000000 +0100
++++ jbigkit.i/install.sh	2013-06-02 14:49:52.204757770 +0200
+@@ -0,0 +1,13 @@
++#!/usr/bin/env bash
++
++DESTDIR=$1
++if [ -z "${DESTDIR}" ];then echo no destdir;exit -1;fi
++for i in bin include lib doc man;do mkdir -pv "${DESTDIR}/$i";done
++cp -rfv pbmtools/jbgtopbm{,85} pbmtools/pbmtojbg{,85} "${DESTDIR}/bin"
++cp -rfv libjbig/*.h "${DESTDIR}/include"
++cp -rfv libjbig/libjbig{,85}*{.so*,.dylib,.a} "${DESTDIR}/lib"
++cp -rfv ANNOUNCE CHANGES TODO libjbig/*.txt "${DESTDIR}/doc"
++
++
++
++# vim:set et sts=4 ts=4 tw=80:
+diff -Nur jbigkit/Makefile jbigkit.i/Makefile
+--- jbigkit/Makefile	2008-08-30 22:40:22.000000000 +0200
++++ jbigkit.i/Makefile	2013-06-02 14:49:10.965468967 +0200
+@@ -36,3 +36,8 @@
+ 	  gzip -9f jbigkit-$(VERSION).tar )
+ 	scp ../jbigkit-$(VERSION).tar.gz slogin-serv1.cl.cam.ac.uk:public_html/download/
+ 	scp CHANGES slogin-serv1.cl.cam.ac.uk:public_html/jbigkit/
++
++install:
++	chmod +x install.sh
++	./install.sh $(DESTDIR)
++
